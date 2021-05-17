@@ -23,17 +23,12 @@ public class TinhteMessageTest {
 	JavascriptExecutor js;
 
 	public static void main(String args[]) {
-		/*
-		 * if (System.getProperty("webdriver.firefox.bin") == null) { // Replace with
-		 * your Firefox 46 path System.setProperty("webdriver.firefox.bin",
-		 * "C:\\Program Files (x86)\\Mozilla Firefox 46\\firefox.exe"); }
-		 */
 		if (System.getProperty("webdriver.chrome.driver") == null) {
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\feli9\\Downloads\\chromedriver.exe");
 		}
 		JUnitCore junit = new JUnitCore();
 		junit.addListener(new TextListener(System.out));
-		Result result = junit.run(TinhteMessageTest.class); // Replace your class name
+		Result result = junit.run(TinhteMessageTest.class);
 		if (result.getFailureCount() > 0) {
 			System.out.println("Test failed.");
 			System.exit(1);
@@ -61,98 +56,68 @@ public class TinhteMessageTest {
 	// tạo tin nhắn đơn giản
 	public void testcase1() throws InterruptedException {
 		String content = "Hi!";
+		// mở trang tinh tế
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
+		// click vào nút đăng nhập
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+		// nhập username
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+		// nhập password
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
 		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
-
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+				.sendKeys("123456");
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+		// nhấn vào hộp thư
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
+		// chọn xem tất cả
 		driver.findElement(By.linkText("Xem tất cả")).click();
 		driver.findElement(By.cssSelector(".topCtrl span")).click();
-
+		// nhập người nhận
 		driver.findElement(By.id("ctrl_recipients")).click();
-		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024"); // 5 |
+		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024");
+		// nhập tiêu đề
 		driver.findElement(By.id("ctrl_title")).click();
-		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1"); // 5 |
-
+		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1");
+		// nhập nội dung
 		driver.switchTo().frame(0);
-		driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		driver.findElement(By.cssSelector("body")).sendKeys(content); // 5 |
+		driver.findElement(By.cssSelector("body")).click();
+		driver.findElement(By.cssSelector("body")).sendKeys(content);
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click(); // 4 | type |
+		// gửi
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click();
 		Thread.sleep(3000);
-		// String result = driver.findElement(By.cssSelector(".titleBar >
-		// h1")).getText();
-		// String result =
-		// driver.findElement(By.cssSelector(".errorOverlay")).getText();
-		// WebElement elementName = driver.findElement(By.cssSelector(".baseHtml"));
-		// String elementName =
-		// driver.findElement(By.cssSelector(".baseHtml")).getText();
 		String result = driver.findElement(By.cssSelector(".baseHtml")).getText();
-
 		System.out.println(result);
 		assertEquals(content, result);
 		driver.close();
-
 	}
 
 	@Test
-	// tạo tin nhắn thiếu tên người nhận
+	// tạo tin nhắn thiếu tên ngư�?i nhận
 	public void testcase3() throws InterruptedException {
 		String content = "Tham gia:\nPlease enter at least one valid recipient.";
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
 		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
-
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+				.sendKeys("123456");
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.linkText("Xem tất cả")).click();
 		driver.findElement(By.cssSelector(".topCtrl span")).click();
-
-		// driver.findElement(By.id("ctrl_recipients")).click();
-		// driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024"); // 5 |
 		driver.findElement(By.id("ctrl_title")).click();
-		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1"); // 5 |
+		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1");
 
 		driver.switchTo().frame(0);
-		driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		driver.findElement(By.cssSelector("body")).sendKeys("Hi!"); // 5 |
+		driver.findElement(By.cssSelector("body")).click();
+		driver.findElement(By.cssSelector("body")).sendKeys("Hi!");
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click();
 		Thread.sleep(1000);
-		// String result = driver.findElement(By.cssSelector(".titleBar >
-		// h1")).getText();
-		// String result =
-		// driver.findElement(By.cssSelector(".errorOverlay")).getText();
-		// WebElement elementName = driver.findElement(By.cssSelector(".baseHtml"));
-		// String elementName =
-		// driver.findElement(By.cssSelector(".baseHtml")).getText();
+
 		String result = driver.findElement(By.cssSelector(".baseHtml")).getText();
 		System.out.println(result);
 		assertEquals(content, result);
@@ -161,41 +126,36 @@ public class TinhteMessageTest {
 	}
 
 	@Test
-	// tạo tin nhắn thiếu tên chủ đề
+	// tạo tin nhắn thiếu tên chủ đ�?
 	public void testcase4() throws InterruptedException {
 		String content = "Tiêu đề:\nPlease enter a valid title.";
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.linkText("Xem tất cả")).click();
 		driver.findElement(By.cssSelector(".topCtrl span")).click();
 
 		driver.findElement(By.id("ctrl_recipients")).click();
-		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024"); // 5 |
-		// driver.findElement(By.id("ctrl_title")).click();
-		// driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1"); // 5 |
+		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024");
 
 		driver.switchTo().frame(0);
-		driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		driver.findElement(By.cssSelector("body")).sendKeys("Hi!"); // 5 |
+		driver.findElement(By.cssSelector("body")).click();
+		driver.findElement(By.cssSelector("body")).sendKeys("Hi!");
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click();
 		Thread.sleep(1000);
 		String result = driver.findElement(By.cssSelector(".baseHtml")).getText();
 		System.out.println(result);
@@ -208,37 +168,33 @@ public class TinhteMessageTest {
 	public void testcase5() throws InterruptedException {
 		String content = "Please enter a valid message.";
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.linkText("Xem tất cả")).click();
 		driver.findElement(By.cssSelector(".topCtrl span")).click();
 
 		driver.findElement(By.id("ctrl_recipients")).click();
-		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024"); // 5 |
+		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuu1024");
 		driver.findElement(By.id("ctrl_title")).click();
-		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1"); // 5 |
+		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1");
 
 		driver.switchTo().frame(0);
-		// driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		// driver.findElement(By.cssSelector("body")).sendKeys("Hi!"); // 5 |
+
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click();
 		Thread.sleep(1000);
 		String result = driver.findElement(By.cssSelector(".baseHtml")).getText();
 		System.out.println(result);
@@ -251,37 +207,34 @@ public class TinhteMessageTest {
 	public void testcase6() throws InterruptedException {
 		String content = "Tham gia:\nThe following recipients could not be found: AnhTuuu1024.";
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.linkText("Xem tất cả")).click();
 		driver.findElement(By.cssSelector(".topCtrl span")).click();
 
 		driver.findElement(By.id("ctrl_recipients")).click();
-		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuuu1024"); // 5 |
+		driver.findElement(By.id("ctrl_recipients")).sendKeys("AnhTuuu1024");
 		driver.findElement(By.id("ctrl_title")).click();
-		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1"); // 5 |
+		driver.findElement(By.id("ctrl_title")).sendKeys("Trò chuyện 1");
 
 		driver.switchTo().frame(0);
-		driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		driver.findElement(By.cssSelector("body")).sendKeys("Hi!"); // 5 |
+		driver.findElement(By.cssSelector("body")).click();
+		driver.findElement(By.cssSelector("body")).sendKeys("Hi!");
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(3) .primary")).click();
 		Thread.sleep(1000);
 		String result = driver.findElement(By.cssSelector(".baseHtml")).getText();
 		System.out.println(result);
@@ -290,69 +243,61 @@ public class TinhteMessageTest {
 	}
 
 	@Test
-	// trả lời tin nhắn
+	// trả l�?i tin nhắn
 	public void testcase9() throws InterruptedException {
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.cssSelector(".jsx-756775732:nth-child(1) > .jsx-3853293736 .title")).click();
 
 		driver.switchTo().frame(0);
-		driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		driver.findElement(By.cssSelector("body")).sendKeys("Alo alo đang ở đâu vậy"); // 5 |
+		driver.findElement(By.cssSelector("body")).click();
+		driver.findElement(By.cssSelector("body")).sendKeys("Alo alo đang ở đâu vậy");
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".primary:nth-child(2)")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".primary:nth-child(2)")).click();
 		Thread.sleep(1000);
 		driver.close();
 	}
 
 	@Test
-	// trả lời tin nhắn thiếu nội dung
+	// trả l�?i tin nhắn thiếu nội dung
 	public void testcase11() throws InterruptedException {
 		String content = "Có lỗi hoặc lưu ý:\nPlease enter a valid message.";
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.cssSelector(".jsx-756775732:nth-child(1) > .jsx-3853293736 .title")).click();
 
 		driver.switchTo().frame(0);
-		// driver.findElement(By.cssSelector("body")).click(); // 4 | type |
-		// driver.findElement(By.cssSelector("body")).sendKeys("Alo alo đang ở đâu
-		// vậy"); // 5 |
+
 		driver.switchTo().defaultContent();
-		driver.findElement(By.cssSelector(".primary:nth-child(2)")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".primary:nth-child(2)")).click();
 		Thread.sleep(1000);
 		;
 		String result = driver.findElement(By.cssSelector(".errorOverlay")).getText();
@@ -362,35 +307,32 @@ public class TinhteMessageTest {
 	}
 
 	@Test
-	// Sửa tiêu đề cuộc hội thoại
+	// Sửa tiêu đ�? cuộc hội thoại
 	public void testcase13() throws InterruptedException {
 
 		driver.get("https://tinhte.vn/");
-		// 2 | click | login |
-		driver.findElement(By.cssSelector(".jsx-1306406219")).click(); // 3 |
-		// click | username |
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click(); // 4 | type |
-		// input username
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123"); // 5 |
-		// click | password |
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click(); // 4
-																														// |
-																														// type
-																														// |
-		// input password
-		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
-				.sendKeys("123456"); // 5 |
-		// click dang nhap button
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click(); // 3 |
 
-		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click(); // 3 |
+		driver.findElement(By.cssSelector(".jsx-1306406219")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).click();
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(2) #ctrl_pageLogin_login")).sendKeys("anhtus123");
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password")).click();
+
+		driver.findElement(By.cssSelector("#ctrl_pageLogin_registered_Disabler > #ctrl_pageLogin_password"))
+				.sendKeys("123456");
+
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .button")).click();
+
+		driver.findElement(By.cssSelector(".jsx-724576068 > g > g:nth-child(2) > path")).click();
 		driver.findElement(By.cssSelector(".jsx-756775732:nth-child(1) > .jsx-3853293736 .title")).click();
 
-		driver.findElement(By.linkText("Sửa tin nhắn")).click(); // 4 | type |
-		driver.findElement(By.id("ctrl_title")).click(); // 4 | type |
-		driver.findElement(By.id("ctrl_title")).sendKeys("Con mèo"); // 5 |
+		driver.findElement(By.linkText("Sửa tin nhắn")).click();
+		driver.findElement(By.id("ctrl_title")).click();
+		driver.findElement(By.id("ctrl_title")).sendKeys("Con mèo");
 		Thread.sleep(1000);
-		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .primary")).click(); // 4 | type |
+		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(4) .primary")).click();
 		driver.close();
 	}
 

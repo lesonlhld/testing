@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import org.junit.internal.TextListener;
@@ -47,7 +46,7 @@ public class TinhteSearchTest {
 	public void setUp() {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		js = (JavascriptExecutor) driver;
 		vars = new HashMap<String, Object>();
 	}
@@ -60,6 +59,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase1() throws InterruptedException {
 		// Test name: testcase_1
+		// SearchNormal: Tìm kiếm các từ khóa thông thường
 		String data = "điện thoại";
 		// Step # | name | target | value
 		// 1 | open | / |
@@ -82,6 +82,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase2() throws InterruptedException {
 		// Test name: testcase_2
+		// SearchMisspell: Tìm kiếm các từ khóa sai chính tả
 		String data = "điễn thoải";
 		// Step # | name | target | value
 		// 1 | open | / |
@@ -104,6 +105,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase3() throws InterruptedException {
 		// Test name: testcase_3
+		// SearchSpecial: Tìm kiếm các từ khóa đặc biệt
 		String data = "[ß]ui_ðoi™";
 		// Step # | name | target | value
 		// 1 | open | / |
@@ -126,6 +128,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase4() throws InterruptedException {
 		// Test name: testcase_4
+		// SearchSpace: Tìm kiếm với 1 hoặc vài khoảng trắng
 		String data = "    ";
 		// Step # | name | target | value
 		// 1 | open | / |
@@ -148,6 +151,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase5() throws InterruptedException {
 		// Test name: testcase_5
+		// SearchNoExist: Tìm kiếm các từ khóa không tồn tại
 		String data = "sagfghbvmgwsczvf";
 		// Step # | name | target | value
 		// 1 | open | / |
@@ -172,6 +176,7 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase6() throws InterruptedException {
 		// Test name: testcase_6
+		// SearchNoContent: Tìm kiếm không có nội dung trong trang chủ
 		// Step # | name | target | value
 		// 1 | open | / |
 		driver.get("https://tinhte.vn/");
@@ -191,12 +196,11 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase7() throws InterruptedException {
 		// Test name: testcase_7
+		// SearchAdNoContent: Tìm kiếm không có nội dung trong trang tìm kiếm
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | click | css=.ctrlUnit:nth-child(7) .button |
 		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(7) .button")).click();
 		// 4 | checkResult | |
@@ -209,13 +213,12 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase8() throws InterruptedException {
 		// Test name: testcase_8
+		// SearchAdOnlyTitle: Tìm kiếm với chức năng "Chỉ tìm tiêu đề"
 		String data = "điện thoại";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | click | id=ctrl_title_only |
@@ -232,14 +235,13 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase9() throws InterruptedException {
 		// Test name: testcase_9
+		// SearchByMember: Tìm kiếm với chức năng "Viết bởi thành viên"
 		String data = "điện thoại";
 		String userName = "cuhiep";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | click | id=ctrl_users |
@@ -258,14 +260,14 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase10() throws InterruptedException {
 		// Test name: testcase_10
+		// SearchByInvalidMember: Tìm kiếm với chức năng "Viết bởi thành viên" nhưng
+		// không tồn tại thành viên đó
 		String data = "điện thoại";
 		String userName = "xacvb";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | click | id=ctrl_users |
@@ -284,13 +286,13 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase11() throws InterruptedException {
 		// Test name: testcase_11
+		// SearchAdPreviousDate: Tìm kiếm với chức năng "Mới hơn" và ngày nhỏ hơn hoặc
+		// bằng ngày hiện tại
 		String data = "điện thoại";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | click | id=ctrl_date |
@@ -311,13 +313,13 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase12() throws InterruptedException {
 		// Test name: testcase_12
+		// SearchAdFutureDate: Tìm kiếm với chức năng "Mới hơn" và ngày lớn hơn ngày
+		// hiện tại
 		String data = "điện thoại";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | click | id=ctrl_date |
@@ -338,31 +340,25 @@ public class TinhteSearchTest {
 	@Test
 	public void testcase13() throws InterruptedException {
 		// Test name: testcase_13
+		// SearchAdInThread: Tìm kiếm với chức năng "Tìm trong Diễn đàn"
 		String data = "điện thoại";
 		// Step # | name | target | value
 		// 1 | open | https://tinhte.vn/search |
 		driver.get("https://tinhte.vn/search");
 		Thread.sleep(1000);
-		// 2 | click | id=ctrl_keywords |
-		driver.findElement(By.id("ctrl_keywords")).click();
 		// 3 | type | id=ctrl_keywords | điện thoại
 		driver.findElement(By.id("ctrl_keywords")).sendKeys(data);
 		// 4 | removeSelection | id=ctrl_nodes | label=Các diễn đàn
-		{
-			WebElement dropdown = driver.findElement(By.id("ctrl_nodes"));
-			dropdown.findElement(By.xpath("//option[. = 'Các diễn đàn']")).click();
-		}
+		WebElement dropdown = driver.findElement(By.id("ctrl_nodes"));
+		dropdown.findElement(By.xpath("//option[. = 'Các diễn đàn']")).click();
 		// 5 | addSelection | id=ctrl_nodes | label=Thông tin - Sự kiện
-		{
-			WebElement dropdown = driver.findElement(By.id("ctrl_nodes"));
-			dropdown.findElement(By.xpath("//option[. = 'Thông tin - Sự kiện']")).click();
-		}
+		dropdown.findElement(By.xpath("//option[. = 'Thông tin - Sự kiện']")).click();
 		// 6 | click | css=.ctrlUnit:nth-child(7) .button |
 		driver.findElement(By.cssSelector(".ctrlUnit:nth-child(7) .button")).click();
 		// 7 | checkResult | |
 		Thread.sleep(1000);
 		assertEquals("Kết quả tìm kiếm \"" + data + "\" | Tinhte.vn", driver.getTitle());
 		// 8 | close | |
-		driver.close();
+		// driver.close();
 	}
 }
